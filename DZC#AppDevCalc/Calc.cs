@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DZC_AppDevCalc
+    
 {
     internal class Calc : InterfaceCalc
     {
@@ -17,12 +19,12 @@ namespace DZC_AppDevCalc
         {
             MyEventHandler?.Invoke(this, new EventArgs());
         }
-
-        public void Divide(double x)
+        
+        public void Divide(int x) 
         {
             if (x == 0)
             {
-                Result = 0;
+                throw new DivideByZeroCalcException("Can't divide by zero.");
 
             }
             else { Result /= x; }
@@ -31,13 +33,56 @@ namespace DZC_AppDevCalc
             PrintResult();
 
         }
+        public void Divide(double x)
+        {
+            if (x == 0)
+            {
+                throw new DivideByZeroCalcException("Can't divide by zero.");
+
+            }
+            else { Result /= x; }
+
+            Results.Push(Result);
+            PrintResult();
+
+        }
+        public void Multiply(int x)
+        {
+            try
+            {
+                unchecked
+                {
+                    Result *= x;
+                    Results.Push(Result);
+                    PrintResult();
+                }
+
+            }
+            catch
+            {
+                throw new OperationCauseOverflowCalcException("Overflow Exception");
+            }
+
+
+        }
 
         public void Multiply(double x)
         {
-            
-            Result *= x;
-            Results.Push(Result);
-            PrintResult();
+            try 
+            {
+                unchecked 
+                {
+                    Result *= x;
+                    Results.Push(Result);
+                    PrintResult();
+                }
+                
+            }
+            catch 
+            {
+                throw new OperationCauseOverflowCalcException("Overflow Exception");
+            }
+           
 
         }
 
@@ -48,12 +93,48 @@ namespace DZC_AppDevCalc
             PrintResult();
 
         }
+        public void Subtract(int x)
+        {
+            Result -= x;
+            Results.Push(Result);
+            PrintResult();
+
+        }
 
         public void Summarize(double x)
         {
-            Result += x;
-            Results.Push(Result);
-            PrintResult();
+            try 
+            {
+                unchecked
+                {
+                    Result += x;
+                    Results.Push(Result);
+                    PrintResult();
+                }
+            }
+            catch 
+            {
+            throw new OperationCauseOverflowCalcException("Overflow exception");
+            }
+         
+
+        }
+        public void Summarize(int x)
+        {
+            try
+            {
+                unchecked
+                {
+                    Result += x;
+                    Results.Push(Result);
+                    PrintResult();
+                }
+            }
+            catch
+            {
+                throw new OperationCauseOverflowCalcException("Overflow exception");
+            }
+
 
         }
 

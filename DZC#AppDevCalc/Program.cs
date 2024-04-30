@@ -2,8 +2,8 @@
 
 namespace DZC_AppDevCalc
 {
-   //Доработайте программу калькулятор реализовав выбор действий и вывод результатов на экран в цикле так чтобы
-   //калькулятор мог работать до тех пор пока пользователь не нажмет отмена или введёт пустую строку.
+   // Доработайте класс калькулятора способным работать как с целочисленными так и с дробными числами.
+   // (возможно стоит задействовать перегрузку операций)
     internal class Program
     {
         static bool IsNumber(string s) 
@@ -61,7 +61,9 @@ namespace DZC_AppDevCalc
                         case "*": calc1.Multiply(valueN); break;
                         case "-": calc1.Subtract(valueN); break;
                         case "+": calc1.Summarize(valueN); break;
-                        case "/": calc1.Divide(valueN); break;
+                        case "/": calc1.Divide(valueN); break; // Перегрузила метод Хотя не совсем понимаю зачем
+                            // так как если тип указан дабл и ввести инт то программа будет исправно работать так как
+                            // дабл покрывает как инт , так и флоат и тд.
                         case "cancel": Console.WriteLine("Buy buy");
                         break;
                         default:  break;
